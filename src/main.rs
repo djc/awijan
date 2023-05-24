@@ -1,16 +1,11 @@
+use clap::Parser;
 use octocrab::models::pulls::PullRequest;
 use octocrab::params::pulls::Sort;
 use octocrab::params::{Direction, State};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let opts = Opts {
-        repo: "quinn-rs/quinn".to_owned(),
-        target: "main".to_owned(),
-        end: 1435,
-        team: vec!["djc".to_owned(), "Ralith".to_owned()],
-    };
-
+    let opts = Opts::parse();
     let (org, repo) = match opts.repo.split_once('/') {
         Some(parts) => parts,
         None => return Err(anyhow::anyhow!("invalid repo name: {:?}", opts.repo)),
@@ -75,9 +70,13 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
+#[derive(Parser, Debug)]
 struct Opts {
     repo: String,
+    #[arg(long, default_value = "main")]
     target: String,
+    #[arg(long)]
     end: u64,
+    #[arg(long)]
     team: Vec<String>,
 }
