@@ -6,5 +6,5 @@ edition = "2021"
 [dependencies]
 anyhow = "1"
 clap = { version = "4.3", features = ["derive"] }
-octocrab = "0.23"
+octocrab = "0.25.1"
 tokio = { version = "1.28", features = ["macros", "rt-multi-thread"] }
