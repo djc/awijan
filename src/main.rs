@@ -72,11 +72,15 @@ async fn main() -> anyhow::Result<()> {
 
 #[derive(Parser, Debug)]
 struct Opts {
+    /// Source repository
     repo: String,
+    /// Target branch
     #[arg(long, default_value = "main")]
     target: String,
+    /// The PR number to stop at (last PR from previous release)
     #[arg(long)]
     end: u64,
+    /// Team members who don't needed to be called out
     #[arg(long)]
     team: Vec<String>,
 }
